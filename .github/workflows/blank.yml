@@ -18,3 +18,4 @@ jobs:
           pathtosettingsfile: '${{ github.workspace }}/AusyTooling-API/AusyTooling.API/appsettings.json'
           name: "default"
           connectionstring: "Server=(local); Database=demo123; Trusted_Connection=True;"
+          run: cat appsettings.json
