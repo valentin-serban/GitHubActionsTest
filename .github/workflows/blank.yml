@@ -1,0 +1,20 @@
+name: Deploy AWS Lambda Function
+
+on:
+  push:
+    branches: [ main ]
+    
+jobs:
+  deploy_lambda:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: edit connection string
+        uses: benday-inc/edit-dbconnstr-in-appsettings@main
+        with:
+          pathtosettingsfile: '${{ github.workspace }}/AusyTooling-API/AusyTooling.API/appsettings.json'
+          name: "default"
+          connectionstring: "Server=(local); Database=demo123; Trusted_Connection=True;"
