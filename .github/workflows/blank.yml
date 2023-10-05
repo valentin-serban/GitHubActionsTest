@@ -14,15 +14,8 @@ jobs:
 
       - name: Test
         working-directory: AusyTooling-API/AusyTooling.API
-        run: jq '.ConnectionStrings.DefaultConnection = "abc"' appsettings.json > "tmp" && mv "tmp" appsettings.json
+        run: jq '.ConnectionStrings.DefaultConnection = ${ secrets.CONNECTION_STRING }' appsettings.json > "tmp" && mv "tmp" appsettings.json
 
       - name: Test2
         run: cat AusyTooling-API/AusyTooling.API/appsettings.json
         
-      - name: App Settings Variable Substitution
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: '${{env.DOTNET_ROOT}}/AusyTooling-API/AusyTooling.API/appsettings.json'
-        env:
-          ConnectionStrings.DefaultConnection: ${{ secrets.CONNECTION_STRING }}
-          run: echo '${{env.DOTNET_ROOT}}/AusyTooling-API/AusyTooling.API/appsettings.json'
