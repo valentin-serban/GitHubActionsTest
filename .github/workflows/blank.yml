@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 env:
-  CONNECTION_STRING: ${ secrets.CONNECTION_STRING }
+  CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
     
 jobs:
   deploy_lambda:
