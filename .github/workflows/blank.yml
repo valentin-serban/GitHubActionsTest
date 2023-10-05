@@ -14,7 +14,10 @@ jobs:
 
       - name: Test
         working-directory: AusyTooling-API/AusyTooling.API
-        run: ls
+        run: jq .ConnectionStrings.DefaultConnection = "abc"
+
+      - name: Test2
+        run: cat AusyTooling-API/AusyTooling.API/appsettings.json
         
       - name: App Settings Variable Substitution
         uses: microsoft/variable-substitution@v1
