@@ -12,6 +12,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Test
+        run: ls
+
       - name: App Settings Variable Substitution
         uses: microsoft/variable-substitution@v1
         with:
