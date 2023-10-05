@@ -3,6 +3,9 @@ name: Deploy AWS Lambda Function
 on:
   push:
     branches: [ main ]
+
+env:
+  CONNECTION_STRING: ${ secrets.CONNECTION_STRING }
     
 jobs:
   deploy_lambda:
@@ -14,7 +17,7 @@ jobs:
 
       - name: Test
         working-directory: AusyTooling-API/AusyTooling.API
-        run: jq '.ConnectionStrings.DefaultConnection = ${ secrets.CONNECTION_STRING }' appsettings.json > "tmp" && mv "tmp" appsettings.json
+        run: jq '.ConnectionStrings.DefaultConnection = $CONNECTION_STRING' appsettings.json > "tmp" && mv "tmp" appsettings.json
 
       - name: Test2
         run: cat AusyTooling-API/AusyTooling.API/appsettings.json
