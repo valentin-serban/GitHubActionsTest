@@ -14,7 +14,7 @@ jobs:
 
       - name: Test
         working-directory: AusyTooling-API/AusyTooling.API
-        run: jq .ConnectionStrings.DefaultConnection = "abc"
+        run: jq .ConnectionStrings.DefaultConnection = "abc" appsettings.json
 
       - name: Test2
         run: cat AusyTooling-API/AusyTooling.API/appsettings.json
