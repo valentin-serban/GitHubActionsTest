@@ -8,7 +8,7 @@ env:
   CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
     
 jobs:
-  deploy_lambda:
+  change-connection-string:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,6 +19,10 @@ jobs:
         working-directory: AusyTooling-API/AusyTooling.API
         run: jq '.ConnectionStrings.DefaultConnection = env.CONNECTION_STRING' appsettings.json > "tmp" && mv "tmp" appsettings.json
 
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Test2
         run: cat AusyTooling-API/AusyTooling.API/appsettings.json
         
