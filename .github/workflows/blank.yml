@@ -1,8 +1,11 @@
 name: Deploy AWS Lambda Function
 
 on:
-  push:
-    branches: [ main ]
+  pull_request:
+    branches:
+      - main
+    types:
+      closed
 
 env:
   CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
@@ -12,6 +15,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check if PR branch contains 'BE'
+        id: check_branch
+        run: |
+          if [[ ${{ github.event.pull_request.base.ref }} == "main" && ${{ github.event.pull_request.head.ref }} == *"BE"* ]]; then
+            echo "::set-output name=run_workflow::true"
+          else
+            echo "::set-output name=run_workflow::false"
+          fi
+    
       - name: Checkout code
         uses: actions/checkout@v2
 
