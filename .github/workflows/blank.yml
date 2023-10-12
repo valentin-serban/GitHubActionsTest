@@ -29,6 +29,7 @@ jobs:
 
       - name: Test
         working-directory: AusyTooling-API/AusyTooling.API
+        if: steps.check_branch.outputs.run_workflow == 'true'
         run: jq '.ConnectionStrings.DefaultConnection = env.CONNECTION_STRING' appsettings.json > "tmp" && mv "tmp" appsettings.json
 
   test:
