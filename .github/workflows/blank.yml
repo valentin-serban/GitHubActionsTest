@@ -18,7 +18,7 @@ jobs:
 
       - name: Test
         working-directory: AusyTooling-API/AusyTooling.API
-        run: jq '.ConnectionStrings.DefaultConnection = env.CONNECTION_STRING' appsettings.json > "tmp" && mv "tmp" appsettings.json
+        run: jq '.ConnectionStrings.DefaultConnection = "Database=ausy-tooling-dev; Data Source=ausy-tooling-dev.cddjztebudhs.eu-central-1.rds.amazonaws.com; User ID=admin; Password=niSyb48EgGVQuJHh9e78; Initial Catalog=ausy-tooling-dev"' appsettings.json > "tmp" && mv "tmp" appsettings.json
 
       - name: test2
         working-directory: AusyTooling-API/AusyTooling.API
