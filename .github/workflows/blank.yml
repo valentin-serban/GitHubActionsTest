@@ -1,11 +1,9 @@
 name: Deploy AWS Lambda Function
 
 on:
-  pull_request:
+  push:
     branches:
       - main
-    types:
-      closed
 
 env:
   CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
@@ -15,15 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check if PR branch contains 'BE'
-        id: check_branch
-        run: |
-          if [[ ${{ github.event.pull_request.base.ref }} == "main" && ${{ github.event.pull_request.head.ref }} == *"BE"* ]]; then
-            echo "::set-output name=run_workflow::true"
-          else
-            echo "::set-output name=run_workflow::false"
-          fi
-    
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -32,6 +21,9 @@ jobs:
         if: steps.check_branch.outputs.run_workflow == 'true'
         run: jq '.ConnectionStrings.DefaultConnection = env.CONNECTION_STRING' appsettings.json > "tmp" && mv "tmp" appsettings.json
 
+      - name: test2
+        working-directory: AusyTooling-API/AusyTooling.API
+        run: cat appsettings.json
   test:
     runs-on: ubuntu-latest
 
