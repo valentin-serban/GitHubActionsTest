@@ -1,4 +1,4 @@
-name: Deploy AWS Lambda Function
+name: Deploy AWS Lambda Functions
 
 on:
   pull_request:
