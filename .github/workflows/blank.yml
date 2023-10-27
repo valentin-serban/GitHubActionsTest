@@ -4,7 +4,8 @@ on:
   pull_request:
     branches:
       - main
-    types: [completed]
+    types:
+      - closed
 
 env:
   CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
@@ -14,11 +15,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check if PR branch contains 'BE'
+        id: check_branch
+        run: |
+          if [[ ${{ github.event.pull_request.base.ref }} == "main" && ${{ github.event.pull_request.head.ref }} == *"BE"* ]]; then
+            echo "::set-output name=run_workflow::true"
+          else
+            echo "::set-output name=run_workflow::false"
+          fi
+          
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Test
         working-directory: AusyTooling-API/AusyTooling.API
+        if: steps.check_branch.outputs.run_workflow == 'true'
         run: jq '.ConnectionStrings.DefaultConnection = env.CONNECTION_STRING' appsettings.json > "tmp" && mv "tmp" appsettings.json
 
       - name: test2
