@@ -1,9 +1,11 @@
 name: Deploy AWS Lambda Function
 
 on:
-  push:
+  pull_request:
     branches:
       - main
+    types:
+      - completed
 
 env:
   CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
